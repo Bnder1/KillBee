@@ -14,11 +14,10 @@ const useStyles = makeStyles((theme) => ({
   },
 
   displayContainer: {
-    height: "80vh",
     backgroundColor: "#deefff",
   },
   routerContainer: {
-    height: "70vh",
+
   },
 
 }));
