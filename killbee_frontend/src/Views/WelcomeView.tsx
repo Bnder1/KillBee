@@ -37,7 +37,7 @@ function WelcomeView() {
             <Grid item xs={12}>
                 <Grid container direction={"row"} className={classes.toolBar}>
                     <Grid xs={4}>
-                        <Button variant="outlined">New product</Button>
+                        <Button variant="outlined" >New product</Button>
                     </Grid>
                    <Grid xs={5}>
                        <TextField
