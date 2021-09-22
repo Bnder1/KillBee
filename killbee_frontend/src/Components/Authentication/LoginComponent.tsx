@@ -1,6 +1,7 @@
-import {Button, Dialog, DialogContent, Grid, TextField, Typography, withStyles} from "@material-ui/core";
+import {Button, Dialog, DialogContent, Grid, IconButton, TextField, Typography, withStyles} from "@material-ui/core";
 import {green, grey, teal} from "@material-ui/core/colors";
 import React, {Component, useState} from "react";
+import CloseIcon from '@material-ui/icons/Close';
 
 
 const styles = () => ({
@@ -44,7 +45,7 @@ const styles = () => ({
 
 function LoginComponent(props: any) {
 
-    const {classes} = props;
+    const {classes, closeForm} = props;
     const initForm = {
         email: "",
         password: ""
@@ -67,7 +68,6 @@ function LoginComponent(props: any) {
     }
 
     const [open, setOpen] = useState<boolean>(true);
-
     return (
         <Grid>
             <Dialog
@@ -79,9 +79,14 @@ function LoginComponent(props: any) {
                     <Grid item xs={12}>
                         <Grid item xs={12}>
                             <Grid container direction="row" xs={12} className={classes.mainHeader}>
-                                <Grid item xs={12}>
+                                <Grid item xs={11}>
                                     <Typography className={classes.primaryColor} variant="h5">
                                         Login to Killerbee </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <IconButton style={{backgroundColor:"red"}} onClick={closeForm}>
+                                        <CloseIcon/>
+                                    </IconButton>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -109,7 +114,7 @@ function LoginComponent(props: any) {
                                 <Grid item xs={12}>
                                     <Grid container xs={12} direction={"row"} justifyContent={"center"}
                                           className={classes.loginButton}>
-                                        <Grid item>
+                                        <Grid item >
                                             <Button type="button" variant="outlined" color="primary"
                                                     className="form__custom-button">
                                                 Log in

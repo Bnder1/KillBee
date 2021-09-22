@@ -33,10 +33,13 @@ export function Header() {
         setOpenLogin(true);
     };
 
+    const closeLogin = () => {
+        setOpenLogin(false);
+    }
     return (
         <React.Fragment>
             {
-                openLogin && <LoginComponent/>
+                openLogin && <LoginComponent closeForm={closeLogin}/>
             }
             <Toolbar className={classes.toolbar}>
                 <Button size="small">Killbee Foundation</Button>
