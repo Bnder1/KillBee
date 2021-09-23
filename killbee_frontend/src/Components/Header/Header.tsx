@@ -52,7 +52,6 @@ export function Header() {
                 >
                     An internal tool for the company
                 </Typography>
-
                 <Typography
                     component="h6"
                     variant="h6"
@@ -63,11 +62,9 @@ export function Header() {
                 >
                     Project A5
                 </Typography>
-
                 <Button variant="outlined" size="small" onClick={login}>
                     Sign in
                 </Button>
-
             </Toolbar>
         </React.Fragment>
     );
