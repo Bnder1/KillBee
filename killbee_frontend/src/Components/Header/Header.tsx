@@ -38,6 +38,7 @@ export function Header() {
     }
     return (
         <React.Fragment>
+            // isAuth ici
             {
                 openLogin && <LoginComponent closeForm={closeLogin}/>
             }
