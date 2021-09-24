@@ -2,14 +2,14 @@
 var express = require('express');
 var app = express();
 var ActiveDirectory = require('activedirectory');
-var config = {
-  url : '192.168.1.10', //mettre lien AD ici
-  basedn : 'dc=domain, dc=com',
-};
+
+
+
+var config = require('./AD_config.json');
 
 var ad = new ActiveDirectory(config);
-var username = 'mettre utilisateur ici';
-var password = 'mettre MDP ici';
+var username = 'test@test.com';
+var password = '12345678';
 
 ad.authenticate(username, password, function(err, auth) {
     if (err) {
@@ -28,4 +28,4 @@ ad.authenticate(username, password, function(err, auth) {
 
 // app.listen(3000, function() {
 //   return console.log('Example app listening on port 3000!');
-// });
+// });  
