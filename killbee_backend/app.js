@@ -22,35 +22,24 @@ app.listen(port, function () {
 
 app.post('/auth', async (req, res) => {
     //console.log(req.query);
-    try {
-
-        let auth_status = await auth(req.query.username, req.query.password)
-        let resp = await auth_status.json();
-        console.log(auth_status)
-        res.send(auth_status)
-    } catch {
-        res.send("SERVER ERROR")
-    }
+    const  resserv="VIDE"
+    await ad.authenticate(req.query.username, req.query.password, function (err, auth){
+       if (err) {
+                console.log("1")
+                    res.send("1")
+                }
+                else{
+                if (auth) {
+                console.log("2")
+                res.send(  "ok")
+                }
+                else {
+                console.log("3")
+                res.send("AUTH ERROR")
+                }}})
+    
+    
 });
 
 
-async function auth(username, password) {
 
-    try {
-        ad.authenticate(username, password, function (err, auth) {
-            if (err) {
-                return "AUTH ERROR";
-            }
-            if (auth) {
-                return "ok"
-            }
-            else {
-                return "AUTH ERROR"
-            }
-        });
-    }
-    catch {
-        return "SERVER ERROR"
-    }
-
-}
