@@ -3,7 +3,7 @@ import { ThunkAction } from 'redux-thunk'
 
 import rootReducer, { RootState } from './reducer/reducer'
 
-const store = configureStore({
+ const  store = configureStore({
     reducer: rootReducer
 })
 

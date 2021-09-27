@@ -25,34 +25,6 @@ export const initialState: AuthState = {
 }
 
 
-export const authSlice = createSlice({
-    name: 'auth',
-    initialState,
-    reducers: {
-        setLogOut: (state) => {
-            state.isAuth = false
-            state.currentUser = undefined
-        },
-    },
-    extraReducers: (builder) => {
-        builder.addCase(signInUser.fulfilled, (state, {payload}: PayloadAction<any>) => {
-            state.currentUser!.username = payload.username;
-            state.currentUser!.role = payload.privilege;
-            state.currentUser!.id = payload.id;
-            state.isLoading = false;
-            state.isAuth = true;
-        }),
-            builder.addCase(signInUser.pending, (state, {payload}: PayloadAction<any>) => {
-                state.isLoading = true;
-            }),
-            builder.addCase(
-                (signInUser.rejected), (state, {payload}: PayloadAction<any>) => {
-                    state.isLoading = false;
-                    state.error = payload.message;
-                })
-    }
-})
-
 export const signInUser = createAsyncThunk(
     "user/signIn",
     async (params: { username: string, password: string }, thunkAPI) => {
@@ -73,20 +45,49 @@ export const signInUser = createAsyncThunk(
             )
             let data = await response.json()
             console.log("data", data)
-            if (response.status === 200) {
+            if (response.status === 2030) {
                 localStorage.setItem("token", data.token)
                 return data;
             } else {
                 return thunkAPI.rejectWithValue(data)
             }
         } catch (e) {
-            console.log("Error", e.response.data)
-            return thunkAPI.rejectWithValue(e.response.data)
+            console.log("Error", e)
+            return thunkAPI.rejectWithValue(e)
         }
     }
 )
-export const { setLogOut } = authSlice.actions
+ const authSlice = createSlice({
+    name: 'auth',
+    initialState,
+    reducers: {
+        setLogOut: (state) => {
+            state.isAuth = false
+            state.currentUser = undefined
+        },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(signInUser.fulfilled, (state, {payload}: PayloadAction<any>) => {
+                state.currentUser!.username = payload.username;
+                state.currentUser!.role = payload.privilege;
+                state.currentUser!.id = payload.id;
+                state.isLoading = false;
+                state.isAuth = true;
+            })
+            .addCase(signInUser.pending, (state, {payload}: PayloadAction<any>) => {
+                state.isLoading = true;
+            })
+            .addCase(
+                (signInUser.rejected), (state, {payload}: PayloadAction<any>) => {
+                    state.isLoading = false;
+                    state.error = payload.message;
+                })
+    }
+})
 
-export const authSelector = (state: any) => state.user
+export const {setLogOut} = authSlice.actions;
+
+export const authSelector = (state: any) => state.user;
 
 export default authSlice.reducer;

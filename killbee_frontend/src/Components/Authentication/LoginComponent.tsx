@@ -105,7 +105,6 @@ function LoginComponent(props: any) {
                     >
                         <DialogContent className={classes.padding}>
                             <Grid item xs={12}>
-                                <Grid item xs={12}>
                                     <Grid container direction="row" xs={12} className={classes.mainHeader}>
                                         <Grid item xs={11}>
                                             <Typography className={classes.primaryColor} variant="h5">
@@ -117,7 +116,8 @@ function LoginComponent(props: any) {
                                             </IconButton>
                                         </Grid>
                                     </Grid>
-                                </Grid>
+                            </Grid>
+                            <Grid item xs={12}>
                                 <Grid container xs={12} className={classes.inputContainer}>
                                     <form onSubmit={submitForm}>
                                         <Grid item xs={12} className={classes.inputFields}>
