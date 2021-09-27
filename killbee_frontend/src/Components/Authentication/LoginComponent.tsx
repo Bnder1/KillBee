@@ -58,6 +58,7 @@ const styles = () => ({
 
 function LoginComponent(props: any) {
 
+
     // Utiliser ici ou ailleurs lors de premiere co.
     // useEffect(() => {
     //     dispatch(fetchUserBytoken({ token: localStorage.getItem("token") }))
@@ -143,7 +144,7 @@ function LoginComponent(props: any) {
                                             <Grid container xs={12} direction={"row"} justifyContent={"center"}
                                                   className={classes.loginButton}>
                                                 <Grid item>
-                                                    <Button type="button" variant="outlined" color="primary"
+                                                    <Button type="submit" variant="outlined" color="primary"
                                                             className="form__custom-button">
                                                         Log in
                                                     </Button>
