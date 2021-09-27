@@ -26,15 +26,18 @@ app.post('/auth', async (req, res) => {
     await ad.authenticate(req.query.username, req.query.password, function (err, auth){
        if (err) {
                 console.log("1")
+                res.status(403);
                     res.send("1")
                 }
                 else{
                 if (auth) {
                 console.log("2")
+                res.status(200);
                 res.send(  "ok")
                 }
                 else {
                 console.log("3")
+                res.status(403);
                 res.send("AUTH ERROR")
                 }}})
     
