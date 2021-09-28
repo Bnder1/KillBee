@@ -29,32 +29,33 @@ export const signInUser = createAsyncThunk(
     "user/signIn",
     async (params: { username: string, password: string }, thunkAPI) => {
         try {
+            console.log(params.username);
             console.log("Inside the redux function")
+            const requestHeaders: HeadersInit = new Headers();
+            requestHeaders.set('Content-Type', 'application/json');
+            ;
+          
             const response = await fetch(
-                "https://addresseDuBACK/",
+                "http://localhost:3000/auth",
                 {
                     method: "POST",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        username: params.username,
-                        password: params.password,
-                    }),
+                    headers: requestHeaders,
+                    body: JSON.stringify(
+                            params
+                ),
                 }
             )
-            let data = await response.json()
-            console.log("data", data)
-            if (response.status === 2030) {
-                localStorage.setItem("token", data.token)
+            let data = await response
+            let token = await response.json()
+            if (response.status == 200) {
+                console.log("INSIDE 200")
+                 localStorage.setItem("token", token)
                 return data;
             } else {
-                return thunkAPI.rejectWithValue(data)
-                console.log("erroe !!")
+                return thunkAPI.rejectWithValue("ok")
+                
             }
         } catch (e) {
-            console.log("Error", e)
             return thunkAPI.rejectWithValue(e)
         }
     }

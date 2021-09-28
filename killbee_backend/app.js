@@ -9,7 +9,6 @@ var ad = new ActiveDirectory(config);
 //var username = 'test@test.com';
 //var password = '12345678';
 var port = 3000;
-mode: 'no-cors'
 
 app.use(cors());
 
@@ -22,6 +21,12 @@ app.listen(port, function () {
 app.use(express.json({
     type: ['application/json', 'text/plain']
   }));
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 app.post('/auth', async (req, res) => {
     const  resserv="VIDE"
@@ -37,14 +42,13 @@ app.post('/auth', async (req, res) => {
                 if (auth) {
                 console.log("2")
                 res.status(200);
-                res.send(  "ok")
+                res.send( JSON.stringify ("Ok"))
                 }
                 else {
                 console.log("3")
                 res.status(403);
                 res.send("AUTH ERROR")
                 }}})
-    
     
 });
 

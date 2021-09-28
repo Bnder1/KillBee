@@ -56,6 +56,11 @@ const styles = () => ({
     }
 });
 
+
+interface Form{
+    username: string,
+    password: string,
+}
 function LoginComponent(props: any) {
 
 
@@ -72,11 +77,12 @@ function LoginComponent(props: any) {
         }
     }, [isAuth]);
     const {classes, closeForm} = props;
+
     const initForm = {
         username: "",
         password: ""
     };
-    const [form, setForm] = useState(initForm);
+    const [form, setForm] = useState<Form>(initForm);
 
     function handleChange(e: any) {
         const target = e.target;
@@ -90,6 +96,7 @@ function LoginComponent(props: any) {
     }
 
     const submitForm = () => {
+        console.log(form)
         dispatch(signInUser(form))
     }
 
@@ -101,9 +108,9 @@ function LoginComponent(props: any) {
                     <CircularProgress/> :
                     <Dialog
                         fullWidth
-                        maxWidth="md"
+                        maxWidth="md" 
                         open={open}
-                    >
+                    > 
                         <DialogContent className={classes.padding}>
                             <Grid item xs={12}>
                                     <Grid container direction="row" xs={12} className={classes.mainHeader}>
@@ -129,9 +136,12 @@ function LoginComponent(props: any) {
                                                 variant="outlined"
                                                 label="Username"
                                                 defaultValue=""
+                                                name="username"
                                                 placeholder="Username"
+                                                onChange={handleChange}
                                             />
                                             <TextField
+                                                onChange={handleChange}
                                                 variant="outlined"
                                                 required
                                                 fullWidth
