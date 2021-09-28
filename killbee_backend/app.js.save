@@ -1,0 +1,31 @@
+// Variables
+var express = require('express');
+var app = express();
+var ActiveDirectory = require('activedirectory');
+var config = {
+  url : 'lda', //mettre lien AD ici ldap://killbee.com'
+  basedn : 'dc=SRV-W12R2-AD1, dc=com'
+};
+
+var ad = new ActiveDirectory(config);
+var username = 'Administrateur';
+var password = 'qsdF54321$';
+
+ad.authenticate(username, password, function(err, auth) {
+    if (err) {
+        console.log('ERROR: '+JSON.stringify(err));
+        return;
+    }
+    if (auth) {
+        console.log('Authenticated!');
+    }
+    else {
+        console.log('Authentication failed!');
+    }
+});
+
+// // Then simply use your express app
+
+// app.listen(3000, function() {
+//   return console.log('Example app listening on port 3000!');
+// });
