@@ -1,0 +1,4 @@
+{
+    "url" : "ldap://killbee.com",
+    "basedn" : "dc=SRV-W12R2-AD1, dc=com"
+}

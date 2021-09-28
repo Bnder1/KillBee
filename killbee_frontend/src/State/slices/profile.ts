@@ -29,6 +29,7 @@ export const signInUser = createAsyncThunk(
     "user/signIn",
     async (params: { username: string, password: string }, thunkAPI) => {
         try {
+            console.log("Inside the redux function")
             const response = await fetch(
                 "https://addresseDuBACK/",
                 {
@@ -50,6 +51,7 @@ export const signInUser = createAsyncThunk(
                 return data;
             } else {
                 return thunkAPI.rejectWithValue(data)
+                console.log("erroe !!")
             }
         } catch (e) {
             console.log("Error", e)
@@ -57,7 +59,7 @@ export const signInUser = createAsyncThunk(
         }
     }
 )
- const authSlice = createSlice({
+const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
