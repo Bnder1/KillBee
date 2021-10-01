@@ -1,4 +1,6 @@
-{
+ {
     "url" : "ldap://killbee.com",
-    "basedn" : "dc=SRV-W12R2-AD1, dc=com"
+    "baseDN": "cn=Users,dc=killbee, dc=com",
+    "username": "Administrateur@killbee.com",
+    "password": "qsdF54321$"
 }

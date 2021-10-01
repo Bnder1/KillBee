@@ -92,11 +92,9 @@ function LoginComponent(props: any) {
             ...form,
             [setName]: value
         })
-        console.log(form);
     }
 
     const submitForm = () => {
-        console.log(form)
         dispatch(signInUser(form))
     }
 
