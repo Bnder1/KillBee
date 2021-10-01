@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import LoginComponent from '../Authentication/LoginComponent';
+import { useSelector } from 'react-redux';
+import { authSelector } from '../../State/slices/profile';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +29,9 @@ const useStyles = makeStyles((theme) => ({
 
 export function Header() {
 
+   
     const classes = useStyles();
+    const {isLoading, error, isAuth} = useSelector(authSelector);
     const [openLogin, setOpenLogin] = useState<boolean>(false);
     const login = () => {
         setOpenLogin(true);
@@ -36,6 +40,13 @@ export function Header() {
     const closeLogin = () => {
         setOpenLogin(false);
     }
+
+    useEffect(() => {
+        if (isAuth) {
+            setOpenLogin(false)
+        }
+    }, [isAuth]);
+    
     return (
         <React.Fragment>
             {
@@ -62,9 +73,11 @@ export function Header() {
                 >
                     Project A5
                 </Typography>
-                <Button variant="outlined" size="small" onClick={login}>
+                { !isAuth &&
+                    <Button variant="outlined" size="small" onClick={login}>
                     Sign in
                 </Button>
+}
             </Toolbar>
         </React.Fragment>
     );
