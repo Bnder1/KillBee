@@ -7,11 +7,11 @@ var ad = new ActiveDirectory(config);
 ad.baseDN = config.baseDN;
 var port = 3000;
 
-app.use(cors());
+app.use(cors(
+));
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
@@ -39,16 +39,18 @@ app.use(express.json({
 
 app.post('/auth', async (req, res) => {
   const resserv = "VIDE"
-  //console.log(JSON.stringify(req.body));
+  console.log(req.body.username);
+  ad.baseDN = config.baseDN;
   await ad.authenticate(req.body.username + "@killbee.com", req.body.password, async function (err, auth) {
     if (err) {
       console.log(err)
       console.log("1")
       res.status(403);
-      res.send("1")
+      res.send(err);
     }
     else {
       if (auth) {
+        ad.baseDN = config.baseDN;
         console.log("2")
         const token = generateAccessToken({ username: req.body.username });
         await ad.findUser(req.body.username, function (err, user) {

@@ -32,11 +32,11 @@ export const signInUser = createAsyncThunk(
             //console.log(params.username);
             console.log("Inside the redux function")
             const requestHeaders: HeadersInit = new Headers();
-            requestHeaders.set('Content-Type', 'application/json');
-            ;
+            requestHeaders.set('Content-Type', 'application/json',);
+            requestHeaders.set('Access-Control-Allow-Origin', '*');
             const response = await fetch(
-                "http://localhost:3000/auth",
-                {
+                "http://192.168.1.15:3000/auth",
+                {  
                     method: "POST",
                     headers: requestHeaders,
                     body: JSON.stringify(

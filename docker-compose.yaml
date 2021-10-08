@@ -1,0 +1,35 @@
+version : "3.2"
+
+##SERVICES
+
+
+
+services:
+
+
+  backend:
+    build: 
+      context: ./killbee_backend
+      dockerfile: Dockerfile
+    ports: 
+      - 3000:3000
+    volumes:
+      - ./killbee_backend/:/home/node/app
+      - ./killbee_backend/node_modules:/home/node/app/node_modules
+    command: "node app.js"
+
+
+  
+
+
+  frontend:
+    build: 
+      context: ./killbee_frontend
+      dockerfile: Dockerfile
+    ports: 
+      - 80:3000
+    volumes:
+      - ./killbee_frontend/:/app
+      - ./killbee_frontend/node_modules:/app/node_modules
+    command: "npm start"
+    
