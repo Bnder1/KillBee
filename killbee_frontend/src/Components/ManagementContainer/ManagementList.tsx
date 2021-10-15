@@ -1,6 +1,9 @@
 import {Avatar, Button, Grid, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
 import  tableCellClass from '@material-ui/core/TableCell';
-import React from "react";
+import React, { useEffect } from "react";
+import {useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { productSelector } from "../../State/slices/products";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -23,36 +26,44 @@ const rows = [
 ];
 
 export default function ManagementList() {
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const {isLoading, error, allProducts, currentProduct} = useSelector(productSelector);
     const classes = useStyles();
     return (
       <Grid item xs={12}>
-          <TableContainer component={Paper}>
-              <Table  aria-label="simple table">
-                  <TableHead>
-                      <TableRow>
-                          <TableCell>Name</TableCell>
-                          <TableCell align="right">Description</TableCell>
-                          <TableCell align="right">Ingredient&nbsp;(unique)</TableCell>
-                      </TableRow>
-                  </TableHead>
-                  <TableBody>
-                      {rows.map((row) => (
-                          <TableRow
-                              key={row.name}
-                          >
-                              <TableCell component="th" scope="row">
-                                  {row.name}
-                              </TableCell>
-                              <TableCell align="right">{row.calories}</TableCell>
-                              <TableCell align="right">{row.fat}</TableCell>
-                              <TableCell align="right"> <Button variant="outlined" onClick={() => {}}>Edit
-                                  </Button></TableCell>
-                              <TableCell align="right">  <Button variant="outlined" onClick={() => {}}>Delete </Button></TableCell>
+          {
+              allProducts &&
+              <TableContainer component={Paper}>
+                  <Table aria-label="simple table">
+                      <TableHead>
+                          <TableRow>
+                              <TableCell>Name</TableCell>
+                              <TableCell align="right">Description</TableCell>
+                              <TableCell align="right">Ingredient&nbsp;(unique)</TableCell>
                           </TableRow>
-                      ))}
-                  </TableBody>
-              </Table>
-          </TableContainer>
+                      </TableHead>
+                      <TableBody>
+                          {allProducts.map((row : any) => (
+                              <TableRow
+                                  key={row.name}
+                              >
+                                  <TableCell component="th" scope="row">
+                                      {row.name}
+                                  </TableCell>
+                                  <TableCell align="right">{row.description}</TableCell>
+                                  <TableCell align="right">{row.ingredient}</TableCell>
+                                  <TableCell align="right"> <Button variant="outlined" onClick={() => {
+                                  }}>Edit
+                                  </Button></TableCell>
+                                  <TableCell align="right"> <Button variant="outlined" onClick={() => {
+                                  }}>Delete </Button></TableCell>
+                              </TableRow>
+                          ))}
+                      </TableBody>
+                  </Table>
+              </TableContainer>
+          }
       </Grid>
     );
 }
