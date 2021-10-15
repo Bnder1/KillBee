@@ -1,0 +1,16 @@
+{ 
+    "ext": "js, json, ts",
+    "verbose": true,
+    "legacyWatch": true,
+    "watch": [
+        "{*.js,*.ts}",
+        "src/{*.js,*.ts}",
+        "src/*/{*.js,*.ts}",
+        "*.json"
+    ],
+    "ignore": [
+        "node_modules",
+        "bin",
+        ".git"
+    ]
+}

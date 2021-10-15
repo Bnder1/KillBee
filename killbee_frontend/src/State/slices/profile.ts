@@ -27,15 +27,17 @@ export const initialState: AuthState = {
 
 export const signInUser = createAsyncThunk(
     "user/signIn",
+    
     async (params: { username: string, password: string }, thunkAPI) => {
+        console.log("El chibrax");
         try {
-            //console.log(params.username);
+            console.log("El chibrax");
             console.log("Inside the redux function")
             const requestHeaders: HeadersInit = new Headers();
             requestHeaders.set('Content-Type', 'application/json');
             ;
             const response = await fetch(
-                "http://localhost:3000/auth",
+                "http://backend:3000/auth",
                 {
                     method: "POST",
                     headers: requestHeaders,
@@ -58,6 +60,7 @@ export const signInUser = createAsyncThunk(
 
             }
         } catch (e) {
+            console.log("El chibrax");
             return thunkAPI.rejectWithValue(e)
         }
     }
@@ -74,7 +77,6 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(signInUser.fulfilled, (state, { payload }: PayloadAction<any>) => {
-                console.log("Chibre de Joseph:\n")
                 console.log(payload)
                 state.currentUser = {} as CurrentUser
                 state.currentUser!.username = payload.sAMAccountName;
@@ -101,6 +103,6 @@ const authSlice = createSlice({
 
 export const { setLogOut } = authSlice.actions;
 
-export const authSelector = (state: any) => state.user;
+export const authSelector = (state: any) => state;
 
 export default authSlice.reducer;

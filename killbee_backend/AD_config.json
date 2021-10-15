@@ -1,4 +1,4 @@
- {
+{
     "url" : "ldap://killbee.com",
     "baseDN": "cn=Users,dc=killbee, dc=com",
     "username": "Administrateur@killbee.com",

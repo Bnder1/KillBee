@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {withStyles, MenuItem} from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -12,6 +12,9 @@ import TextField from "@material-ui/core/TextField";
 import Icon from "@material-ui/core/Icon";
 import {teal, grey, green} from "@material-ui/core/colors";
 import {Modal} from "antd";
+import {useDispatch, useSelector } from "react-redux";
+import {createProduct, productSelector } from "../../State/slices/products";
+import { useHistory } from "react-router-dom";
 
 const styles = () => ({
     root: {
@@ -51,10 +54,19 @@ function NewVoteDialog(props: any) {
 
     const {classes, open, onclose} = props;
     const initialForm = {
-        _name: "",
-        _description: "",
-        _endTime: 0,
+        name: "",
+        description: "",
+        ingredient: 0,
     };
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const {isLoading, error, isAuth} = useSelector(productSelector);
+    // useEffect(() => {
+    //     if (isAuth) {
+    //         history.push("/")
+    //     }
+    // }, [isAuth]);
+
     const [voteForm, setVoteForm] = useState(initialForm);
     const [openModal, setOpenModal] = useState<boolean>(true);
 
@@ -70,6 +82,10 @@ function NewVoteDialog(props: any) {
     }
 
     async function submitVote() {
+    }
+
+    const submitForm = () => {
+        dispatch(createProduct(voteForm))
     }
 
     return (
@@ -171,9 +187,9 @@ function NewVoteDialog(props: any) {
                                         multiline
                                         rows="1"
                                         variant="outlined"
-                                        label="Ingredients"
-                                        name="ingredients"
-                                        id="ingredients"
+                                        label="Ingredient"
+                                        name="ingredient"
+                                        id="ingredient"
                                         onChange={handleInputChange}
                                     />
                                 </Grid>
