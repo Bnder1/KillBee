@@ -18,23 +18,23 @@ router.get("/", function (req, res, next) {
 // POST: Authentificate the user
 router.post("/", async (req, res) => {
     console.log("POST AUTH CALLED");
-    console.log(res);
+    console.log(req.body.username);
+    console.log(req.body.password);
+    console.log("################");
     await ad.authenticate(req.body.username + "@killbee.com", req.body.password, async function (err, auth) {
         if (err) {
           console.log(err)
-          console.log("1")
           res.status(403);
-          res.send("1")
+          res.send(err)
         }
         else {
           if (auth) {
-            console.log("2")
             const token = generateAccessToken({ username: req.body.username });
             await ad.findUser(req.body.username, function (err, user) {
               if (err) {
                 console.log('ERROR: ' + JSON.stringify(err));
                 res.status(500);
-                res.send();
+                res.send(JSON.stringify(err));
               }
               if (!user) console.log('User: ' + username + ' not found.');
               else {
@@ -57,7 +57,6 @@ router.post("/", async (req, res) => {
     
           }
           else {
-            console.log("3")
             res.status(403);
             res.send("AUTH ERROR")
           }
