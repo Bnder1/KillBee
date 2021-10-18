@@ -4,18 +4,6 @@ version : "3.2"
 
 services:
 
-
-  # backend:
-  #   build: 
-  #     context: ./killbee_backend
-  #     dockerfile: Dockerfile
-  #   ports: 
-  #     - 3000:3000
-  #   volumes:
-  #     - ./killbee_backend2/:/home/node/app
-  #   command: "node app.js"
-
-    # COMPONENT: Provide endpoints and all business logic
   backend:
     build: ./killbee_backend
     ports:
@@ -33,7 +21,7 @@ services:
       context: ./killbee_frontend
       dockerfile: Dockerfile
     ports: 
-      - 80:3000
+      - 443:3000
     volumes:
       - ./killbee_frontend/:/app
     command: "npm start"
@@ -48,7 +36,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: r00t.R00T
 
-  # UI TO MANAGE MONGO DB
+  # # UI TO MANAGE MONGO DB
   mongo-express:
     image: mongo-express
     restart: always
