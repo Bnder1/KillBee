@@ -31,8 +31,6 @@ const options = {
 
 app.use(cors());
 
-app.use("/", indexRouter);
-app.use("/ip", ipRouter);
 app.use("/auth", authRouter);
 // app.use("/consumers", consumerRouter);
 

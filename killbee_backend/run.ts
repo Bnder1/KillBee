@@ -16,29 +16,31 @@ var port = normalizePort(process.env.PORT || 3000);
 app.set('port', port);
 
 
-let key = fs.readFileSync('key.pem');
-let cert = fs.readFileSync('csr.pem');
+let key = fs.readFileSync('./key.pem', 'utf8');
+let cert = fs.readFileSync('./server.crt', 'utf8');
 
 /**
  * Create HTTP server.
  */
 
-var httpserver = http.createServer(app);
-var httpsserver = https.createServer({key: key, cert: cert}, app);
+//var httpserver = http.createServer(app);
+var httpserver = https.createServer({key: key, cert: cert}, app);
 
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
+
 httpserver.listen(port);
 httpserver.on('error', onError);
-httpserver.on('listening', onListening(httpserver));
+httpserver.on('listening', onListening);
 
+/*
 httpsserver.listen(port);
 httpsserver.on('error', onError);
 httpsserver.on('listening', onListening(httpsserver));
-
+*/
 /**
  * Normalize a port into a number, string, or false.
  */
@@ -91,8 +93,8 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening(server) {
-  var addr = server.address();
+function onListening() {
+  var addr = httpserver.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
