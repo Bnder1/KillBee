@@ -12,7 +12,7 @@ const { json } = require('body-parser');
 
 // GET
 router.get("/", function (req, res, next) {
-    res.json({"message": "Please send user credentials with POST header"});
+    res.json({"message": "Please send user credentials with POST header not GET"});
 });
 
 // POST: Authentificate the user
@@ -64,7 +64,10 @@ router.post("/", async (req, res) => {
       });
 });
 
-module.exports = router;
+
+router.options("/", async (req, res) => {
+  res.json({"message": "Please send user credentials with POST header not OPTIONS"});
+});
 
 function generateAccessToken(username) {
   return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
@@ -83,3 +86,5 @@ async function finduser(username) {
       else console.log(JSON.stringify(user));
     });
 }
+
+module.exports = router;

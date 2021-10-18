@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { wait } from '@testing-library/dom';
 
 
 export interface AuthError {
@@ -29,15 +30,13 @@ export const signInUser = createAsyncThunk(
     "user/signIn",
     
     async (params: { username: string, password: string }, thunkAPI) => {
-        console.log("El chibrax");
+        console.log("SIGN IN CALLED");
         try {
-            console.log("El chibrax");
             console.log("Inside the redux function")
             const requestHeaders: HeadersInit = new Headers();
             requestHeaders.set('Content-Type', 'application/json');
-            ;
             const response = await fetch(
-                "http://backend:3000/auth",
+                "http://localhost:3000/auth",
                 {
                     method: "POST",
                     headers: requestHeaders,
@@ -47,6 +46,7 @@ export const signInUser = createAsyncThunk(
                 }
             )
             let data = await response
+            console.log(response);
             let rep = await response.json()
             let token = rep.token
             let user = rep.user
@@ -54,14 +54,14 @@ export const signInUser = createAsyncThunk(
             if (response.status == 200) {
                 console.log("INSIDE 200")
                 localStorage.setItem("token", token)
-                return user;
+                //return user;
             } else {
-                return thunkAPI.rejectWithValue("ok")
+                //return thunkAPI.rejectWithValue("ok")
 
             }
         } catch (e) {
-            console.log("El chibrax");
-            return thunkAPI.rejectWithValue(e)
+            console.log("Error try catch:\n" + e);
+            //return thunkAPI.rejectWithValue(e)
         }
     }
 )
